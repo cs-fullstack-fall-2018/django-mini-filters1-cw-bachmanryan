@@ -6,6 +6,8 @@ register = template.Library()
 # THIS FILE WILL CONTAIN OUR CUSTOM FILTERS
 
 # THIS FILTER CONVERTS THE DATE TO A HUMAN READABLE STRING
+
+
 @register.filter(name='get_due_date_string')
 def get_due_date_string(value):
     delta = value - date.today()
@@ -20,3 +22,13 @@ def get_due_date_string(value):
         return "In %s days" % delta.days
 
 
+@register.filter(name='get_due_date_color')
+def get_due_date_color(value):
+    delta = value - date.today()
+
+    if delta.days == 0:
+        return '#FF0000'
+    elif delta.days <= 3:
+        return '#FF7400'
+    else:
+        return '#00CC00'
